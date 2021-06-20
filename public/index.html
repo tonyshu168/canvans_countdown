@@ -13,5 +13,32 @@
 
   <!-- inject:js -->
   <!-- endinject -->
+
+  <!-- <script>
+    function changeInjectPath() {
+      let scripts = document.getElementsByTagName('script'),
+          links = document.getElementsByTagName('link');
+    
+      scripts = [].slice.call(scripts), links = [].slice.call(links);
+    
+      if ( scripts && scripts.length > 0 ) {
+        scripts.forEach(script => {
+          const src = script.getAttribute('src');
+    
+          if ( /output/i.test(src) ) { script.setAttribute('src', `..${src}`); }
+        });
+      }
+    
+      if ( links && links.length > 0 ) {
+        links.forEach(link => {
+          const href = link.getAttribute('href');
+    
+          if ( /output/i.test(href) ) { link.setAttribute('href', `..${href}`); }
+        });
+      }
+    }
+    
+    changeInjectPath();
+  </script> -->
 </body>
 </html>

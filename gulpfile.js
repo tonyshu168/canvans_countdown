@@ -16,7 +16,7 @@ const ts = require('gulp-typescript'),
       tsProject = ts.createProject('tsconfig.json'),
       tsify = require('tsify');
 
-const { serve } = require('./server');
+// const { serve } = require('./server');
       
 // 1
 // function bundleJs( cb ) {
@@ -118,7 +118,6 @@ function handleTs() {
     .pipe(gulp.dest('./output/ts'))
   }
 }
-
 
 // exports.default = defaultTask;
 exports.default = gulp.parallel(gulp.series(defaultTask, injectFun), lessTask);
