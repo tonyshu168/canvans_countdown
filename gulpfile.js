@@ -15,8 +15,9 @@ const fs = require('fs'),
 const ts = require('gulp-typescript'),
       tsProject = ts.createProject('tsconfig.json'),
       tsify = require('tsify');
+const browserSync = require('browser-sync');
 
-// const { serve } = require('./server');
+const { serve } = require('./server');
       
 // 1
 // function bundleJs( cb ) {
@@ -57,8 +58,7 @@ function injectFun() {
   const sources = gulp.src(['./output/**/*.js', './output/**/*.css'], { read: false}, {relative: true});
 
   target.pipe(inject(sources))
-  .pipe(gulp.dest('./output'));
-
+  .pipe(gulp.dest('./output'))
 }
 
 // gulp.task('index', function() {
@@ -75,7 +75,12 @@ function lessTask() {
   .pipe(less({paths: [path.join(__dirname, 'less', 'includes')]}))
   .pipe(autoprefixer())
   .pipe(gif(!isProduction, sourcemaps.write()))
-  .pipe(gulp.dest('./output'))
+  .pipe(gulp.dest('./output'));
+}
+
+function listenLess() {
+  gulp.watch(['./src/**/*.less'])
+  .on('change', lessTask);
 }
 
 function injectCss() {
@@ -120,4 +125,4 @@ function handleTs() {
 }
 
 // exports.default = defaultTask;
-exports.default = gulp.parallel(gulp.series(defaultTask, injectFun), lessTask);
+exports.default = gulp.parallel(gulp.series(defaultTask, injectFun), lessTask, serve, listenLess);
