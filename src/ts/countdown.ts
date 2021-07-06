@@ -9,14 +9,28 @@ import digit from './digit';
         canvas = document.getElementById('canvas') as HTMLCanvasElement,
         ctx = canvas.getContext('2d')!;
 
+  const endTime = new Date('2021-07-10 23:00:00');
+  let curShowTimeSeconds = 0;
+
   canvas.width = WINDOW_WIDTH, canvas.height = WINDOW_HEIGHT;
 
+
+  curShowTimeSeconds = getCurrentShowTimeSeconds();
   render( ctx );
 
+  function getCurrentShowTimeSeconds(): number {
+    let curTime = new Date();
+    let ret = endTime.getTime() - curTime.getTime();
+    
+    ret = Math.round(ret / 1000);
+
+    return ret >= 0 ? ret : 0;
+  }
+
   function render( ctx: CanvasRenderingContext2D ) {
-    let hours = 12,
-        minutes = 34,
-        seconds = 56;
+    let hours = parseInt( String(curShowTimeSeconds / 3600) ),
+        minutes = parseInt( String((curShowTimeSeconds - hours * 3600)/60) ),
+        seconds = curShowTimeSeconds % 60;
 
     // 小时
     // renderDigit( 0, 0, parseInt(String(hours / 10)), ctx);
