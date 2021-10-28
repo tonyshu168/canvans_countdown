@@ -9,14 +9,32 @@ import digit from './digit';
         canvas = document.getElementById('canvas') as HTMLCanvasElement,
         ctx = canvas.getContext('2d')!;
 
-  const endTime = new Date('2021-07-10 23:00:00');
+  const endTime = new Date('2021-10-31 23:00:00');
   let curShowTimeSeconds = 0;
 
   canvas.width = WINDOW_WIDTH, canvas.height = WINDOW_HEIGHT;
 
 
   curShowTimeSeconds = getCurrentShowTimeSeconds();
-  render( ctx );
+  setInterval(function() {
+    render( ctx );
+    update();
+  }, 50);
+  
+  function update() {
+    const nextShowTimeSeconds = getCurrentShowTimeSeconds();
+    const nextHours = parseInt( String(nextShowTimeSeconds / 3600) ),
+          nextMinutes = parseInt( String((nextShowTimeSeconds - nextHours * 3600)/60) ),
+          nextSeconds = nextShowTimeSeconds % 60;
+
+    // 
+    let curHours = parseInt( String(curShowTimeSeconds / 3600) ),
+        curMinutes = parseInt( String((curShowTimeSeconds - curHours * 3600)/60) ),
+        curSeconds = curShowTimeSeconds % 60;
+    if ( nextSeconds !== curSeconds ) {
+      curShowTimeSeconds = nextShowTimeSeconds;
+    }
+  }
 
   function getCurrentShowTimeSeconds(): number {
     let curTime = new Date();
@@ -28,6 +46,8 @@ import digit from './digit';
   }
 
   function render( ctx: CanvasRenderingContext2D ) {
+    ctx.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+
     let hours = parseInt( String(curShowTimeSeconds / 3600) ),
         minutes = parseInt( String((curShowTimeSeconds - hours * 3600)/60) ),
         seconds = curShowTimeSeconds % 60;
