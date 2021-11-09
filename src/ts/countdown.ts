@@ -1,7 +1,7 @@
 import digit from './digit';
 (function(digit) {
-  const WINDOW_WIDTH = 1024,
-        WINDOW_HEIGHT = 768,
+  const WINDOW_WIDTH = document.body.clientWidth || document.documentElement.clientWidth,
+        WINDOW_HEIGHT = document.body.clientHeight || document.documentElement.clientHeight,
         RADIUS = 8,
         MARGIN_TOP = 60,
         MARGIN_LEFT = 30,
@@ -139,6 +139,20 @@ import digit from './digit';
         obj.y = WINDOW_HEIGHT - RADIUS;
         obj.vy =- obj.vy * 0.75;
       }
+    }
+
+    // 小球的性能优化
+    let counter = 0;
+    for ( const ball of balls ) {
+      // 如小球在屏幕内,则加入
+      if ( ball.x + RADIUS > 0 && ball.x - RADIUS < WINDOW_WIDTH ) {
+        balls[counter++] = ball;
+      }
+    }
+
+    // 只渲染最大数量300个小球
+    while ( balls.length > Math.min(300, counter) ) {
+      balls.pop();
     }
   }
 
