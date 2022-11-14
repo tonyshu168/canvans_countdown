@@ -1,15 +1,15 @@
 import digit from './digit';
 (function(digit) {
-  const WINDOW_WIDTH = document.body.clientWidth || document.documentElement.clientWidth,
+  let WINDOW_WIDTH = document.body.clientWidth || document.documentElement.clientWidth,
         WINDOW_HEIGHT = document.body.clientHeight || document.documentElement.clientHeight,
-        RADIUS = 8,
-        MARGIN_TOP = 60,
-        MARGIN_LEFT = 30,
+        RADIUS = Math.round(WINDOW_WIDTH * 4 / 5 / 108) -1,  // 屏幕的4/5除以108(最右边的小球的位置93 + 小球的半径15)
+        MARGIN_TOP = Math.round(WINDOW_HEIGHT / 5),
+        MARGIN_LEFT = Math.round(WINDOW_WIDTH / 10);
 
-        canvas = document.getElementById('canvas') as HTMLCanvasElement,
+  const canvas = document.getElementById('canvas') as HTMLCanvasElement,
         ctx = canvas.getContext('2d')!;
 
-  const endTime = new Date('2021-11-06 23:00:00');
+  const endTime = new Date('2021-11-15 23:00:00');
   let curShowTimeSeconds = 0;
 
   type BallType = {
@@ -31,6 +31,17 @@ import digit from './digit';
     render( ctx );
     update();
   }, 50);
+
+  window.onresize = function() {
+    setTimeout(() => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      WINDOW_WIDTH = document.body.clientWidth || document.documentElement.clientWidth,
+      WINDOW_HEIGHT = document.body.clientHeight || document.documentElement.clientHeight,
+      RADIUS = Math.round(WINDOW_WIDTH * 4 / 5 / 108) -1,  // 屏幕的4/5除以108(最右边的小球的位置93 + 小球的半径15)
+      MARGIN_TOP = Math.round(WINDOW_HEIGHT / 5),
+      MARGIN_LEFT = Math.round(WINDOW_WIDTH / 10);
+    },50)
+  }
   
   function update() {
     const nextShowTimeSeconds = getCurrentShowTimeSeconds();
