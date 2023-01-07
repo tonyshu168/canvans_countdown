@@ -81,19 +81,19 @@ function drawTangram( tangram = tangrams) {
     draw(piece, ctx!);
   })
 
-  function draw(piece: block, cxt: CanvasRenderingContext2D) {
-    cxt.beginPath();
-    cxt.moveTo(piece.p[0].x, piece.p[0].y);
+  function draw(piece: block, ctx: CanvasRenderingContext2D) {
+    ctx.beginPath();
+    ctx.moveTo(piece.p[0].x, piece.p[0].y);
 
     for ( let i = 1, len = piece.p.length; i < len; i++ ) {
       const coordinate = piece.p[i];
-      cxt.lineTo(coordinate.x, coordinate.y);
+      ctx.lineTo(coordinate.x, coordinate.y);
     }
 
-    cxt.closePath();
+    ctx.closePath();
 
-    cxt.fillStyle = piece.color;
-    cxt.fill();
+    ctx.fillStyle = piece.color;
+    ctx.fill();
   }
 }
 

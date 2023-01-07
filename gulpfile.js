@@ -92,18 +92,35 @@ function injectCss() {
 }
 
 function defaultTask( cb ) {
+  const sourceTss = ['./src/main.ts', './src/learnCanvas/index.ts', './src/learnCanvas/drawArc.ts', './src/learnCanvas/countdown.ts'];
   bundleJs();
-  handleTs();
+
+  sourceTss.forEach(source => {
+    if (source === './src/main.ts') {
+      handleTs(source);
+    }
+    else {
+      const directorys = source.split('/');
+      const targetName = `${directorys[2]}_${directorys[3].replace('.ts', '')}.js`;
+      handleTs(source, targetName);
+    }
+  })
+
   cb();
 }
 
-function handleTs() {
+/**
+ * 
+ * @param {*} sourceTs 
+ * @param {output} targetJs 
+ */
+function handleTs(sourceTs, targetJs = 'bundleTs.js') {
   // tsProject.src()
   //   .pipe(tsProject())
   //   .js.pipe(gulp.dest('./output/ts'));
 
   const b = browserify({
-    entries: ['./src/main.ts'],
+    entries: [sourceTs],
     cache: {},
     packageCache: {},
     plugin: [watchify, tsify]
@@ -114,7 +131,7 @@ function handleTs() {
 
   function bundle() {
     b.bundle().on('error', console.error)
-    .pipe(source('bundleTs.js'))
+    .pipe(source(targetJs))
     .pipe(buffer())
     .pipe(sourcemaps.init())
     .pipe(babel({presets: ['@babel/env']}))
