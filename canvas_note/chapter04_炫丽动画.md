@@ -1,3 +1,16 @@
+### 炫丽动画
+***
+
+1. 倒计时动画主要由定时器完成, render方法做渲染，update方法更新
+```typescript
+setInterval(function() {
+  render( context );
+  update();
+}, 50);
+```
+
+2. 时间变化更新，选计算出当前时间的时，分，秒，再计算出倒计时到当前时时的时，分，秒。
+```typescript
 import digit from '../ts/digit';
 
 (function(digit) {
@@ -81,3 +94,4 @@ import digit from '../ts/digit';
     return ret >= 0 ? ret : 0;
   }
 })(digit)
+```
