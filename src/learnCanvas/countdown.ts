@@ -9,7 +9,7 @@ import digit from '../ts/digit';
         canvas = document.getElementById('canvas') as HTMLCanvasElement,
         context = canvas.getContext('2d') as CanvasRenderingContext2D;
   
-  const endTime = new Date('2023-01-12 10:20:35');
+  const endTime = new Date('2023-03-16 10:20:35');
   let curShowTimeSeconds = 0;
 
   canvas.width = WINDOW_WIDTH;
