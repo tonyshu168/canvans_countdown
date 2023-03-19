@@ -92,7 +92,7 @@ function injectCss() {
 }
 
 function defaultTask( cb ) {
-  const sourceTss = ['./src/main.ts', './src/learnCanvas/index.ts', './src/learnCanvas/drawArc.ts', './src/learnCanvas/countdown.ts'];
+  const sourceTss = ['./src/main.ts', './src/learnCanvas/index.ts', './src/learnCanvas/drawArc.ts', './src/learnCanvas/countdown.ts', './src/learnCanvas/physics.ts'];
   bundleJs();
 
   sourceTss.forEach(source => {
