@@ -9,7 +9,7 @@ import digit from './digit';
   const canvas = document.getElementById('canvas') as HTMLCanvasElement,
         ctx = canvas.getContext('2d')!;
 
-  const endTime = new Date('2022-11-18 23:00:00');
+  const endTime = new Date('2023-03-20 23:00:00');
   let curShowTimeSeconds = 0;
 
   type BallType = {
